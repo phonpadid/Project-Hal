@@ -1,7 +1,6 @@
 <template>
   <div class="base-menu-table">
     <!--    Table Action Header-->
-
     <TableActionMenu>
       <template v-slot:searchTable>
         <a-input-search
@@ -38,7 +37,7 @@
           </a>
           <div class="ant-divider ant-divider-vertical"></div>
           <a type="link" class=" text-red-600 text-lg">
-            <DeleteFilled />
+            <DeleteFilled @click="Show_Delete"/>
           </a>
         </template>
       </template>
@@ -94,7 +93,7 @@
         <!-- Address -->
         <div class="px-9">
           <label for="address"
-            >Addrss <label class="text-red-600" for="*">*</label></label
+            >Adderss <label class="text-red-600" for="*">*</label></label
           ><br />
           <input
             class="w-96 h-14 p-4 border-2"
@@ -119,6 +118,20 @@
         >Cancle</a-button
       >
     </a-modal>
+
+    <!-- Delete Recipts -->
+    <a-modal v-model:visible="showDeleteReciepts" :footer="null" :closable="false">
+      <template #title
+        >
+        <div class="bg-red-600 text-white px-10 py-10 customes">
+          <h3 class="TextCustomer">Delete</h3>
+         <button @click="Close_Delete"><i class="fal fa-times-circle icon_close"></i></button> 
+          </div
+      >
+      </template>
+      <RecieptsFormDelete :mode="mode" @Close="showDeleteReciepts = !showDeleteReciepts"></RecieptsFormDelete>
+    </a-modal>
+    <!-- <RecieptsFormDelete/> -->
   </div>
 </template>
 
@@ -129,11 +142,12 @@ import { EditFilled, CopyFilled, EyeFilled ,DeleteFilled } from "@ant-design/ico
 import customer_form from "@/components/system/customer_form.vue";
 import RecieptsUseCase from "@/usecases/recieptsUseCase";
 import { useRoute } from "vue-router";
-
+import RecieptsFormDelete from "@/components/FormDelete/FormDeleteReciept.vue";
+const mode = ref("")
+const showDeleteReciepts =ref(false)
 const {
   addReceipts,
   ViewReceipts
-
 } = RecieptsUseCase;
 
 const handleOk = (e) => {
@@ -144,7 +158,13 @@ const handleOk = (e) => {
 function closeModalHanddle() {
   showModal.value = !showModal.value;
 }
-
+function Show_Delete(){
+  showDeleteReciepts.value = !showDeleteReciepts.value
+  mode.value = "delete"
+}
+function Close_Delete(){
+  showDeleteReciepts.value = !showDeleteReciepts.value
+}
 const router = useRoute();
 const data = [...Array(20)].map((_, i) => ({
   key: i,
@@ -172,4 +192,20 @@ const data = [...Array(20)].map((_, i) => ({
 </script>
 
 <style scoped>
+.TextCustomer {
+  display: flex;
+  color: white;
+  position: relative; 
+  left: 90px;
+}
+.customes {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.icon_close{
+  text-align: end;
+  position: relative;
+  left: 95px;
+}
 </style> 

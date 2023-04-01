@@ -41,21 +41,22 @@
         >
         <div class="bg-red-600 text-white px-10 py-10 customes">
           <h3 class="TextCustomer">Add Customer</h3>
-          <button><i class="fal fa-times-circle icon_close_add"></i></button>
+          <button @click="Close"><i class="fal fa-times-circle icon_close_add"></i></button>
           </div
       ></template>
-      <CustomerFormVue :customerData="customerUpdateData" :show="showCustommer" :mode="mode" ></CustomerFormVue>
+      <CustomerFormVue :customerData="customerUpdateData" :show="showCustommer" @exit="showCustommer = !showCustommer" :mode="mode" ></CustomerFormVue>
     </a-modal>
+
     <!-- Update Customer -->
-    <a-modal v-model:visible="showUpdateCustomer" :footer="null" :closable="false">
+    <a-modal v-model:visible="showUpdateCustomer" :footer="null" :closable="false" >
       <template #title
         >
         <div class="bg-red-600 text-white px-10 py-10 customes">
           <h3 class="TextCustomer">Add Customer</h3>
-          <button><i class="fal fa-times-circle icon_close_add"></i></button>
+          <button @click="Close_Update"><i class="fal fa-times-circle icon_close_add"></i></button>
           </div
       ></template>
-      <FormCustomerUpdate :mode="mode" ></FormCustomerUpdate>
+      <FormCustomerUpdate :mode="mode" @close="showUpdateCustomer = !showUpdateCustomer" ></FormCustomerUpdate>
     </a-modal>
     <!-- Delete -->
     <a-modal v-model:visible="showDeleteCustommer" :footer="null" :closable="false">
@@ -63,11 +64,11 @@
         >
         <div class="bg-red-600 text-white px-10 py-10 customes">
           <h3 class="TextCustomer">Delete</h3>
-         <button><i class="fal fa-times-circle icon_close"></i></button> 
+         <button @click="Close_Delete"><i class="fal fa-times-circle icon_close"></i></button> 
           </div
       >
       </template>
-      <CustomerFormDelete :mode="mode"></CustomerFormDelete>
+      <CustomerFormDelete :mode="mode" @Customer_Close="showDeleteCustommer = !showDeleteCustommer"></CustomerFormDelete>
     </a-modal>
     
   </div>
@@ -90,16 +91,24 @@ const mode = ref("")
 const showDeleteCustommer = ref(false)
 const showUpdateCustomer = ref(false)
 
+// Close Add Customer
+function Close(){
+  showCustommer.value = !showCustommer.value
+}
+// Close Update Customer
+function Close_Update(){
+  showUpdateCustomer.value = !showUpdateCustomer.value
+}
+// Close Delete Customer
+function Close_Delete(){
+  showDeleteCustommer.value = !showDeleteCustommer.value
+}
+
 const customerUpdateData = ref({})
 const handleOk = (e) => {
   console.log(e);
   visible.value = false;
 };
-// function customerUpdateHandler(currentData){
-//   showCustommer.value = !showCustommer.value
-//   // mode.value = "update"
-//   // customerUpdateData.value = currentData
-// }
 function customerCreateHandler(){
   showCustommer.value = !showCustommer.value
   mode.value = "create"
@@ -114,6 +123,8 @@ function customerDelete(){
   showDeleteCustommer.value = !showDeleteCustommer.value
   mode.value = "delete"
 }
+
+
 
 const router = useRoute();
 const data = [...Array(20)].map((_, i) => ({
@@ -154,7 +165,6 @@ const data = [...Array(20)].map((_, i) => ({
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: px;
 }
 .icon_close{
   text-align: end;

@@ -1,84 +1,3 @@
-<template >
-  <div class="form-header">
-    <form @submit.prevent="onSubmit">
-      <!-- Name -->
-      <div class="px-9">
-        <label class="text-left" for="name"
-          >Name <label class="text-red-600" for="*">*</label></label
-        ><br />
-        <input
-          id="name"
-          class="w-96 h-14 p-4 border-2"
-          type="text"
-          placeholder="Business name"
-          v-model="name"
-          @blur="nameBlur"
-        />
-        <br /><span class="text-red-500">{{ nameError }}</span
-        ><br /><br />
-      </div>
-      <!-- Email -->
-      <div class="px-9">
-        <label for="email"
-          >Email <label class="text-red-600" for="*">*</label></label
-        ><br />
-        <input
-          class="w-96 h-14 p-4 border-2"
-          type="email"
-          id="email"
-          placeholder="Recipient mail"
-          v-model="email"
-          @blur="emailBlur"
-        />
-        <br />
-        <span class="text-red-500">{{ emailError }}</span
-        ><br /><br />
-      </div>
-      <!-- phone -->
-      <div class="px-9">
-        <label for="phone"
-          >phone <label class="text-red-600" for="*">*</label></label
-        ><br />
-        <input
-          class="w-96 h-14 p-4 border-2"
-          type="phone"
-          id="phone"
-          placeholder="phone"
-          v-model="phone"
-          @blur="phoneBlur"
-        /><br /><span class="text-red-500">{{ phoneError }}</span> <br /><br />
-      </div>
-      <!-- Address -->
-      <div class="px-9">
-        <label for="address"
-          >Address<label class="text-red-600" for="*">*</label></label
-        ><br />
-        <input
-          class="w-96 h-14 p-4 border-2"
-          type="text"
-          id="address"
-          placeholder="Address"
-          v-model="address"
-        /><br />
-       <p class="text-red-500">{{ addressError }}</p>
-      </div>
-      <br />
-    </form>
-    <!-- Button -->
-    <a-button
-      v-if="props.mode === 'create'"
-      class="btn-save border-box h-12 w-32 text-center my-10 mx-9 max-w-xl"
-      type="primary"
-      danger
-      >Save</a-button
-    >
-    <a-button
-      @click="props.show = !props.show"
-      class="btn-cancle border-red-600 border-box h-12 w-32 text-red-600 mx-12"
-      >Cancle</a-button
-    >
-  </div>
-</template>
 <script setup>
 import { watch } from "vue";
 import { ref, reactive } from "vue";
@@ -146,6 +65,14 @@ const {
   return true;
 });
 
+// *************************************************//
+// Close Customer From 
+const emit = defineEmits(['exit']);
+function closeModal(){
+  emit('exit',true)
+}
+
+
 const props = defineProps({
   show: {
     type: Boolean,
@@ -170,6 +97,89 @@ watch(
 );
 
 </script>
+
+<template >
+<!-- HTML FROM -->
+  <div class="form-header">
+    <form class="container">
+      <!-- Name -->
+      <div class="px-9">
+        <label class="text-left" for="name"
+          >Name <label class="text-red-600" for="*">*</label></label
+        ><br />
+        <input
+          id="name"
+          class="w-96 h-14 p-4 border-2"
+          type="text"
+          placeholder="Business name"
+          v-model="name"
+          @blur="nameBlur"
+        />
+        <br /><span class="text-red-500">{{ nameError }}</span
+        ><br /><br />
+      </div>
+      <!-- Email -->
+      <div class="px-9">
+        <label for="email"
+          >Email <label class="text-red-600" for="*">*</label></label
+        ><br />
+        <input
+          class="w-96 h-14 p-4 border-2"
+          type="email"
+          id="email"
+          placeholder="Recipient mail"
+          v-model="email"
+          @blur="emailBlur"
+        />
+        <br />
+        <span class="text-red-500">{{ emailError }}</span
+        ><br /><br />
+      </div>
+      <!-- phone -->
+      <div class="px-9">
+        <label for="phone"
+          >phone <label class="text-red-600" for="*">*</label></label
+        ><br />
+        <input
+          class="w-96 h-14 p-4 border-2"
+          type="phone"
+          id="phone"
+          placeholder="phone"
+          v-model="phone"
+          @blur="phoneBlur"
+        /><br /><span class="text-red-500">{{ phoneError }}</span> <br /><br />
+      </div>
+      <!-- Address -->
+      <div class="px-9">
+        <label for="address"
+          >Address<label class="text-red-600" for="*">*</label></label
+        ><br />
+        <input
+          class="w-96 h-14 p-4 border-2"
+          type="text"
+          id="address"
+          placeholder="Address"
+          v-model="address"
+        /><br />
+       <p class="text-red-500">{{ addressError }}</p>
+      </div>
+      <br />
+    </form>
+    <!-- Button -->
+    <!-- v-if="props.mode === 'create'" -->
+    <a-button
+      class="btn-save border-box h-12 w-32 text-center my-10 mx-9 max-w-xl"
+      type="primary"
+      danger
+      >Save</a-button
+    >
+    <a-button
+      class="btn-cancle border-red-600 border-box h-12 w-32 text-red-600 mx-12"
+      @click="closeModal"
+      >Cancle</a-button
+    >
+  </div>
+</template>
 <style scoped>
 .btn-save {
   width: 150px;
@@ -178,5 +188,7 @@ watch(
 .btn-cancle {
   width: 150px;
   border-radius: 5px;
+  border: 1px solid #DF0707;
+  color: red;
 }
 </style>

@@ -20,6 +20,21 @@
         Add Invoice list
       </a-button>
     </div>
+     <!-- Delete Invoice -->
+    <a-modal v-model:visible="showDeleteReciepts" :footer="null" :closable="false">
+      <template #title
+        >
+        <!-- Head Delete  -->
+        <div class="bg-red-600 text-white px-10 py-10 reciepts">
+          <h3 class="TextReciepts">Delete</h3>
+         <button @click="Close_Delete"><i class="fal fa-times-circle icon_close"></i></button> 
+          </div
+      >
+      </template>
+      <!-- Form Delete -->
+      <RecieptFormDelete :mode="mode" @Close="showDeleteReciepts = !showDeleteReciepts"></RecieptFormDelete>
+    </a-modal>
+
     <!-- table -->
     <a-table
       :columns="columns"
@@ -34,7 +49,7 @@
           </a>
           <div class="ant-divider ant-divider-vertical"></div>
           <a type="link" class="text-red-600 text-lg">
-            <DeleteFilled />
+            <DeleteFilled @click="Show_Delete_Invoice"/>
           </a>
         </template>
       </template>
@@ -88,7 +103,19 @@ import { columns } from "@/tableColumns/invoiceDetailsClumn";
 import { EditFilled, DeleteFilled } from "@ant-design/icons-vue";
 import { useRoute } from "vue-router";
 import FormTextEditor from "@/components/FormTextEditor/TextEditorForm.vue";
+import RecieptFormDelete from "@/components/FormDelete/FormDeleteListReciept.vue";
 const showModal = ref(false);
+const mode = ref("");
+const showDeleteReciepts = ref(false);
+
+function Show_Delete_Invoice(){
+  showDeleteReciepts.value = !showDeleteReciepts.value
+  mode.value = "delete"
+}
+function Close_Delete(){
+  showDeleteReciepts.value = !showDeleteReciepts.value
+}
+
 const router = useRoute();
 const data = [...Array(2)].map((_, i) => ({
   key: i,
@@ -97,10 +124,14 @@ const data = [...Array(2)].map((_, i) => ({
   qty: `2`,
   amount: `300,000 kip`,
 }));
+function closeModal(close){
+  console.log(close)
 
+}
 function closeModalHanddle() {
   showModal.value = !showModal.value;
 }
+
 </script>
 <style scoped lang="scss">
 .header_table {
@@ -109,7 +140,7 @@ function closeModalHanddle() {
 }
 .add_receipt_list {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   position: relative;
   bottom: 170px;
 }
@@ -125,7 +156,7 @@ function closeModalHanddle() {
 /* icon List */
 .icon_list {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   position: relative;
   top: 35px;
   width: 50px;
@@ -226,5 +257,21 @@ function closeModalHanddle() {
       color: #df0707;
     }
   }
+}
+.TextReciepts {
+  display: flex;
+  color: white;
+  position: relative; 
+  left: 90px;
+}
+.reciepts {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.icon_close{
+  text-align: end;
+  position: relative;
+  left: 95px;
 }
 </style>

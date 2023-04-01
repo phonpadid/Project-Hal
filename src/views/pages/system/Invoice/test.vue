@@ -52,6 +52,7 @@ const rulesState = reactive({
         {required:true,message:'remember is required cannot be empty',trigger:['change']}
     ],
 })
+
 const onFinish = (values) => {
   console.log("Success:", values);
 };

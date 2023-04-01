@@ -54,23 +54,22 @@ function changeTab(activeKey) {
     flex: 1 0 200px;
     margin-bottom: 1200px;
     position: relative;
-    .invoicelist{
-        flex: 1 0 100px;
-        position: relative;
-        left: 45px;
-        bottom: 35px;
+    .invoicelist {
+      flex: 1 0 100px;
+      position: relative;
+      left: 45px;
+      bottom: 35px;
     }
   }
-  .head_form{
+  .head_form {
     flex: 1 0 1400px;
     position: relative;
     bottom: 1220px;
-    .form_detail{
-        flex: 1 0 200px;
-        position: relative;
-        bottom: 250px;
+    .form_detail {
+      flex: 1 0 200px;
+      position: relative;
+      bottom: 250px;
     }
-
   }
 }
 @media (max-width: 768px) {

@@ -2,8 +2,8 @@
     <form action="customer">
         <!-- Name -->
        <div>
-        <h2 class="text_delete">Delete This Customer?</h2><br>
-        <h3 class="text_delete_customer">Are you delete this customer?</h3>
+        <h2 class="text_delete">Delete This Reciepts List?</h2><br>
+        <h3 class="text_delete_customer">Are you delete this Reciepts List?</h3>
        </div>
         </form>
       <!-- Button -->
@@ -15,7 +15,7 @@
         >Ok</a-button
       >
       <a-button
-        @click="colse"
+        @click="Close_Reciept"
         class="btn-cancle border-red-600 border-box h-12 w-32 text-red-600 mx-12"
         >Cancle</a-button>
 </template>
@@ -23,9 +23,9 @@
 import {watch} from 'vue'
 import {ref} from 'vue'
 
-const emit = defineEmits(['Customer_Close']);
-function colse(){
-    emit('Customer_Close', true)
+const emit = defineEmits(['Close']);
+function Close_Reciept(){
+    emit('Close',true);
 }
 const props = defineProps({
     show:{
@@ -42,9 +42,6 @@ const props = defineProps({
     }
 })
 
-function CancleExit(){
-    Exit.value = !Exit.value
-}
 
 // watch(() => props.show , (newValue,oldValue) =>{
 //     if(newValue && props.mode === "update"){
@@ -55,7 +52,6 @@ function CancleExit(){
 // })
 </script>
 <style scoped>
-
 .text_delete{
     display: flex;
     justify-content: center;

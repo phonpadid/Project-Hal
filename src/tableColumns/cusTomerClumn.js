@@ -20,7 +20,7 @@ export const columns = [
     dataIndex: "address",
   },
   {
-    title: "action",
+    title: "Action",
     dataIndex: "action",
   },
 ];

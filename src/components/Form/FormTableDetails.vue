@@ -20,8 +20,8 @@
         Add Receipt list
       </a-button>
     </div>
-    <!-- table -->
-    <a-table
+    <!-- table " -->
+      <a-table
       :columns="columns"
       :data-source="data"
       :pagination="{ pageSize: 10 }"
@@ -34,11 +34,23 @@
           </a>
           <div class="ant-divider ant-divider-vertical"></div>
           <a type="link" class="text-red-600 text-lg">
-            <DeleteFilled />
+            <DeleteFilled @click="Show_Delete_Reciept(record)"/>
           </a>
         </template>
       </template>
     </a-table>
+    <!-- Delete Reciepts -->
+    <a-modal v-model:visible="showDeleteReciepts" :footer="null" :closable="false">
+      <template #title
+        >
+        <div class="bg-red-600 text-white px-10 py-10 reciepts">
+          <h3 class="TextReciepts">Delete</h3>
+         <button @click="Close_Delete"><i class="fal fa-times-circle icon_close"></i></button> 
+          </div
+      >
+      </template>
+      <InvoiceFormDelete :mode="mode"></InvoiceFormDelete>
+    </a-modal>
     <!--Footer text Total Item -->
     <div class="footer-text-invoice font-bold">
       <div class="total-subtotal">
@@ -56,7 +68,7 @@
       <!-- button -->
       <div class="footer-btn">
         <button type="submit" class="btn-save">Save</button>
-        <button class="btn-cancel">Cancel</button>
+        <button class="btn-cancel" >Cancel</button>
       </div>
     </div>
     <!-- Show Add Receipts -->
@@ -77,7 +89,7 @@
           </button></div
       ></template>
       <!-- FormTextEditor -->
-      <FormTextEditor />
+      <FormTextEditor  @exit="closeModalHanddle" />
     </a-modal>
   </div>
 </template>
@@ -85,11 +97,25 @@
 <script setup>
 import { ref } from "vue";
 import { columns } from "@/tableColumns/invoiceDetailsClumn";
-import { EditFilled, DeleteFilled } from "@ant-design/icons-vue";
+import { EditFilled, DeleteFilled, RedditCircleFilled } from "@ant-design/icons-vue";
 import { useRoute } from "vue-router";
 import FormTextEditor from "@/components/FormTextEditor/TextEditorForm.vue";
+import InvoiceFormDelete from "@/components/FormDelete/FormDeleteInvoice.vue";
 const showModal = ref(false);
 const router = useRoute();
+const mode = ref("");
+const showDeleteReciepts = ref();
+
+
+function Show_Delete_Reciept (){
+  showDeleteReciepts.value = !showDeleteReciepts.value
+  mode.value = "delete"
+}
+function Close_Delete(){
+  showDeleteReciepts.value = !showDeleteReciepts.value
+  // console.log("hi");
+}
+
 const data = [...Array(2)].map((_, i) => ({
   key: i,
   index: `${i + 1}`,
@@ -109,7 +135,7 @@ function closeModalHanddle() {
 }
 .add_receipt_list {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   position: relative;
   bottom: 170px;
 }
@@ -125,7 +151,7 @@ function closeModalHanddle() {
 /* icon List */
 .icon_list {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   position: relative;
   top: 35px;
   width: 50px;
@@ -226,5 +252,21 @@ function closeModalHanddle() {
       color: #df0707;
     }
   }
+}
+.TextReciepts{
+  display: flex;
+  color: white;
+  position: relative; 
+  left: 90px;
+}
+.reciepts {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.icon_close{
+  text-align: end;
+  position: relative;
+  left: 95px;
 }
 </style>

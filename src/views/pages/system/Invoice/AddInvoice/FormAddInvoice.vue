@@ -1,19 +1,17 @@
 <template>
-  <div class="base-table-main">
-    <div class="head_img">
-      <img src="@/assets/image/invoice_list.png" alt="no_img" />
-      <h1 class="text-2xl font-bold invoicelist">Invoce List</h1>
+  <div class="head_img">
+    <img src="@/assets/image/invoice_list.png" alt="no_img" />
+    <h1 class="text-2xl font-bold invoicelist">Invoce List</h1>
+  </div>
+  <div class="head_form">
+    <div class="form-invoice-detail">
+      <FromInvoiceDetails />
     </div>
-    <div class="head_form">
-      <div class="form-invoice-detail">
-        <FromInvoiceDetails />
-      </div>
-      <div class="form-invoice-name">
-        <FromInvoiceFormName />
-      </div>
-      <div class="form_detail">
-        <FormTableDetails />
-      </div>
+    <div class="form-invoice-name">
+      <FromInvoiceFormName />
+    </div>
+    <div class="form_detail">
+      <FormTableDetails />
     </div>
   </div>
 </template>
@@ -44,53 +42,36 @@ function changeTab(activeKey) {
 </script>
 
 <style scoped lang="scss">
-.base-table-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+.head_img {
+  .invoicelist {
   position: relative;
-  .head_img {
-    flex: 1 0 200px;
-    margin-bottom: 1200px;
-    position: relative;
-    .invoicelist{
-        flex: 1 0 100px;
-        position: relative;
-        left: 45px;
-        bottom: 35px;
-    }
-  }
-  .head_form{
-    flex: 1 0 1400px;
-    position: relative;
-    bottom: 1220px;
-    .form_detail{
-        flex: 1 0 200px;
-        position: relative;
-        bottom: 250px;
-    }
+  color: red;
+  margin-left: 50px;
+  bottom: 35px;
+}
+}
 
+.head_form {
+  height: 250px;
+  .form_detail {
+    flex: 1 0 200px;
+    position: relative;
+    bottom: 320px;
+    
+  }
+  .form-invoice-detail {
+    width: 100%;
+    height: 200%;
+    padding: 0px;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  .form-invoice-name {
+    height: 400px;
+    width: 100%;
   }
 }
-// .invoicelist {
-//   display: flex;
-//   position: relative;
-//   bottom: 35px;
-//   left: 50px;
-// }
-// .text_editor {
-//   border: 1px solid #d9d9d9;
-//   border-radius: 10px;
-//   width: 550px;
-//   height: 350px;
-//   top: 150px;
-// }
-// .form_detail {
-//   display: flex;
-//   position: relative;
-//   bottom: 270px;
-// }
+
 
 @media (max-width: 768px) {
   .base-table-main {

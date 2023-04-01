@@ -13,8 +13,8 @@
         ></span>
       </template>
       <span
-        style="color: #000c17 !important"
-        class="ml-2 text-base font-light"
+        style="color: white !important"
+        class="ml-1 text-base font-light"
         >{{ customer.name }}</span
       >
     </a-menu-item>
@@ -34,7 +34,7 @@
         ></span>
       </template>
       <span
-        style="color: #000c17 !important"
+        style="color: #FFFFFF !important"
         class="ml-2 text-base font-light"
         >{{ invoice.name }}</span
       >
@@ -81,7 +81,7 @@
         ></span>
       </template>
       <span
-        style="color: #000c17 !important"
+        style="color: #FFFFFF !important"
         class="ml-2 text-base font-light"
         >{{ single.name }}</span
       >
@@ -102,8 +102,8 @@ const store = useStore();
 const Customer = reactive([
   {
     id: 201,
-    name: "customer",
-    icon: "fas fa-user-circle",
+    name: "Customer",
+    icon: "fas fa-user-circle ",
     route: "customer.index",
   },
 ]);

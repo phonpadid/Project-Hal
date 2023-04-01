@@ -22,7 +22,6 @@ function ShowData(){
 
     }
 }
-
 export default {
     onCreate,
     layout,

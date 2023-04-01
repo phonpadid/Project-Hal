@@ -91,7 +91,8 @@ h1, h2, h3, h4, h5, h6, p, span, ul, li, a {
 }
 
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-    background-color: #ECECEC !important;
+    background-color: #FF0303 !important;
+    border-radius: 10px;
 }
 
 .ant-menu-inline .ant-menu-item::after {
@@ -148,7 +149,7 @@ submenu-active, .ant-menu-light .ant-menu-submenu-title:hover {
 
 .ant-menu-sub.ant-menu-inline {
     padding: 0;
-    background: #fafafa;
+    background: white;
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -196,3 +197,28 @@ submenu-active, .ant-menu-light .ant-menu-submenu-title:hover {
     height: 100px;
 }
 
+.text-base {
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    color: #ffffff;
+}
+
+element.style {
+    /* color: white; */
+}
+.fa-user-circle:before {
+    content: "\f2bd";
+    font-size: 1.4rem;
+    color: white;
+}
+
+.fa-file-invoice:before {
+    content: "\f570";
+    font-size: 1.4rem;
+    color: white;
+}
+.fa-receipt:before {
+    content: "\f543";
+    font-size: 1.4rem;
+    color: white;
+}

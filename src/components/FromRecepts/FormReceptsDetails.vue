@@ -6,25 +6,26 @@
         <label for="invoice-name" class="font-bold text-sm">Receipt Name</label
         ><label for="*" class="text-red-600">*</label><br />
         <input
-          v-model="invoiceName"
+          v-model="reciepts_name"
           type="text"
           id="invoice-name"
-          name="invoice-name"
-          placeholder="Invoice name"
+          placeholder="Reciept name"
           class="invoice_name px-4"
+          @blur="receipt_name_Blur"
         />
+        <p class="text-red-500">{{receipt_name_Error}}</p>
       </div>
       <!-- date -->
       <div class="date_invoicename">
         <label for="date" class="font-bold text-sm">Receipt <label class="text_date">date</label></label
         ><label for="*" class="star text-red-600">*</label>
         <input
-          v-model="date"
+          v-model="reciept_date"
           type="date"
           id="date"
           name="date"
           class="input_date"
-        />
+        /><br><br><p class="text-red-500">{{ reciept_date_Error }}</p>
       </div>
       <!--Customer  -->
       <div class="customer py-2">
@@ -47,12 +48,6 @@
           <option value="option2">Currency 2</option>
           <option value="option3">Currency 3</option>
         </select>
-        <input
-          v-model="address"
-          type="currency"
-          id="currency"
-          name="currency"
-        />
       </div>
         </section>
       
@@ -61,13 +56,44 @@
 </template>
 
 <script setup>
+import {ref, reactive} from "vue"
+import { useField, useForm } from "vee-validate";
+const { handleSubmit } = useForm();
 
+// Validate Reciepts name
+const {
+  value: reciepts_name,
+  errorMessage: receipt_name_Error,
+  handleBlur: receipt_name_Blur,
+} = useField("reciepts_name", (value) => {
+  if (!value) {
+    return "Reciept Name is required.";
+  }
+  if (value.length < 3) {
+    return "Reciept name must be at least 3 characters long.";
+  }
+  return true;
+});
+// Validate Reciepts date 
+const { value: reciept_date, errorMessage: reciept_date_Error } = useField(
+  "reciept_date",
+  (value) => {
+    if (!value) {
+      return "date is required.";
+    }
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(value)) {
+      return "date is invalid.";
+    }
+    return true;
+  }
+);
 </script>
 
 <style scoped>
 .form_header{
     position: relative;
-    bottom: 380px;
+    bottom: 440px;
     left: 400px;
     height: 385px;
 }
@@ -80,6 +106,7 @@
   margin: 20px;
   border-radius: 14px;
   width: 700px;
+  height: 400px;
 }
 .invoice_name{
     border: 1px solid #D9D9D9;

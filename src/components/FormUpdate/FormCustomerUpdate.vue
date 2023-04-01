@@ -77,6 +77,7 @@
       >Update</a-button
     >
     <a-button
+    @click="closeModal"
       class="btn-cancle border-red-600 border-box h-12 w-32 text-red-600 mx-12"
       >Cancle</a-button
     >
@@ -145,15 +146,10 @@ const {
   return true;
 });
 
-
-
-
-
-
-
-
-
-
+const emit = defineEmits(['close']);
+function closeModal(){
+  emit('close',true)
+}
 
 const props = defineProps({
   show: {

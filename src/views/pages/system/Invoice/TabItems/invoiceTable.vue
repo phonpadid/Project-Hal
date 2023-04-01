@@ -38,7 +38,7 @@
           </a>
           <div class="ant-divider ant-divider-vertical"></div>
           <a type="link" class="text-red-600 text-lg">
-            <DeleteFilled />
+            <DeleteFilled @click="InvoiceDelete(record)" />
           </a>
         </template>
       </template>
@@ -54,6 +54,19 @@
           Add Customer
         </div></template
       >
+    </a-modal>
+
+    <!-- Delete Invoice -->
+    <a-modal v-model:visible="showDeleteInvoice" :footer="null" :closable="false">
+      <template #title
+        >
+        <div class="bg-red-600 text-white px-10 py-10 customes">
+          <h3 class="TextCustomer">Delete</h3>
+         <button @click="Close_Delete"><i class="fal fa-times-circle icon_close"></i></button> 
+          </div
+      >
+      </template>
+      <InvoiceFormDelete :mode="mode" @Close="showDeleteInvoice = !showDeleteInvoice"></InvoiceFormDelete>
     </a-modal>
   </div>
 </template>
@@ -72,25 +85,39 @@ import CustomerUseCase from "@/usecases/customerUseCase";
 import InvoiceUsecseView from "@/usecases/invoiceUseCase";
 import { useRoute } from "vue-router";
 import invoiceVue from "../invoice.vue";
+import InvoiceFormDelete from "@/components/FormDelete/FormDeleteInvoice.vue";
 
+const showDeleteInvoice = ref(false)
+const mode = ref("")
 const {
   viewInvoice,
   coppyInvoice,
   showAddInvoice
 } = InvoiceUsecseView;
 
+function InvoiceDelete(){
+  showDeleteInvoice.value = !showDeleteInvoice.value
+  mode.value = "delete"
+}
+function Close_Delete(){
+  showDeleteInvoice.value = !showDeleteInvoice.value
+}
 
-// const showModal = ref(false);
-// const handleOk = (e) => {
-//   console.log(e);
-//   visible.value = false;
-// };
+const props = defineProps({
+    show:{
+        type:Boolean,
+        required:true
+    },
+    mode:{
+        type:String,
+        required:true
+    },
+    customerData:{
+        type:Object,
+        required:false
+    }
+})
 
-// function closeModalHanddle() {
-//   showModal.value = !showModal.value;
-// }
-
-// const router = useRoute();
 const data = [...Array(20)].map((_, i) => ({
   key: i,
   index: `${i + 1}`,
@@ -114,4 +141,20 @@ const data = [...Array(20)].map((_, i) => ({
 </script>
 
 <style scoped>
+.TextCustomer {
+  display: flex;
+  color: white;
+  position: relative; 
+  left: 90px;
+}
+.customes {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.icon_close{
+  text-align: end;
+  position: relative;
+  left: 95px;
+}
 </style> 
